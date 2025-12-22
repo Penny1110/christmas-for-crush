@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 给你的圣诞惊喜</title>
+    <meta property="og:title" content="🎄 给你的圣诞惊喜">
+    <meta property="og:description" content="点击查收一份特别的圣诞礼物">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&q=80">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: linear-gradient(to bottom, #0a2e38, #1a1a2e); color: #fff; min-height: 100vh; font-family: Arial; text-align: center; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .snowflake { position: fixed; background: white; border-radius: 50%; opacity: 0.8; animation: fall linear infinite; pointer-events: none; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+        h1 { color: #ff6b6b; font-size: 2.5em; margin: 20px 0; text-shadow: 0 0 10px rgba(255,107,107,0.5); }
+        .tree { color: #2ecc71; font-size: 20px; line-height: 1.2; margin: 30px auto; display: inline-block; }
+        .magic-button { background: linear-gradient(45deg, #ff6b6b, #ffa726); color: white; border: none; padding: 15px 35px; font-size: 1.2em; border-radius: 50px; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(255,107,107,0.4); margin: 20px 0; }
+        .magic-button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,107,107,0.6); }
+        .letter-container { display: none; background: #fff9e6; border-radius: 15px; padding: 30px; margin: 30px auto; max-width: 600px; color: #5d4037; text-align: left; border: 2px solid #ffccbc; }
+        .letter-container.active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .back-button { background: #2196f3; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; margin: 20px 0; }
+        .heart { color: #ff6b6b; animation: heartbeat 1.5s infinite; display: inline-block; }
+        @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎄 圣诞快乐！ 🎄</h1>
+        <p style="color:#4ecdc4; margin-bottom:20px;">在这个特别的季节，为你准备了一份小小的心意</p>
+        
+        <div id="tree" class="tree"></div>
+        
+        <div>
+            <button class="magic-button" id="showLetter">✨ 查收给你的信 ✨</button>
+        </div>
+        
+        <div class="letter-container" id="letter">
+            <div style="text-align:center; border-bottom:2px dashed #ffab91; padding-bottom:15px; margin-bottom:30px;">
+                <h2 style="color:#d84315;">❤️ 给你的一封信 ❤️</h2>
+                <p>圣诞快乐，我亲爱的朋友</p>
+            </div>
+            
+            <div style="line-height:1.8; font-size:1.1em;">
+                <p>Hey Kai,</p>
+                <p>Just wanted to wish you a very Merry Christmas.</p>
+                <p>As the year winds down, I've been thinking about the things I'm grateful for and high on that list is meeting you. Getting to know you has been a real highlight of my 2025.</p>
+                <p>I've really cherished our badminton matches, shared lectures, and those long walks where we talked about everything and nothing. Thank you for always making me feel heard, and for your comforting hugs when I was feeling low.</p>
+                <p>Feels like our story's still being written. Wishing you all the best for 2026 - and beyond.</p>
+                <div style="text-align:right; margin-top:40px; font-style:italic; color:#bf360c; font-size:1.2em;">
+                    <p>Warmly,</p>
+                    <p>Yiyu PAN <span class="heart">❤️</span></p>
+                </div>
+            </div>
+            
+            <div style="text-align:center; margin-top:30px;">
+                <button class="back-button" id="backToTree">🎄 返回圣诞树 🎄</button>
+            </div>
+        </div>
+        
+        <p style="margin-top:40px; color:#81c784; font-style:italic;">愿这个圣诞，你的世界充满温暖和惊喜 <span class="heart">💝</span></p>
+    </div>
+
+    <script>
+        // 生成雪花
+        function createSnowflakes() {
+            for (let i = 0; i < 40; i++) {
+                const flake = document.createElement('div');
+                flake.className = 'snowflake';
+                const size = Math.random() * 5 + 3;
+                flake.style.width = flake.style.height = size + 'px';
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                flake.style.opacity = Math.random() * 0.6 + 0.3;
+                document.body.appendChild(flake);
+            }
+        }
+        
+        // 生成圣诞树
+        function createTree() {
+            const tree = document.getElementById('tree');
+            const height = 7;
+            let treeHtml = '<div style="color:gold; margin-bottom:10px;">⭐</div>';
+            
+            for (let i = 0; i < height; i++) {
+                const spaces = '&nbsp;'.repeat(height - i - 1);
+                let row = '';
+                for (let j = 0; j < (2 * i + 1); j++) {
+                    if (Math.random() < 0.15 && i > 0) {
+                        const deco = ['🔴','🔵','🟡','🎀','💎'][Math.floor(Math.random()*5)];
+                        row += deco;
+                    } else {
+                        row += '<span style="color:#2ecc71">🎄</span>';
+                    }
+                }
+                treeHtml += `<div>${spaces}${row}</div>`;
+            }
+            
+            treeHtml += '<div style="color:#8B4513; margin-top:10px;">&nbsp;&nbsp;|||</div>';
+            treeHtml += '<div style="color:#8B4513;">&nbsp;&nbsp;|||</div>';
+            treeHtml += '<div style="margin-top:20px;">🎁&nbsp;🎁&nbsp;🎁</div>';
+            tree.innerHTML = treeHtml;
+        }
+        
+        // 显示信件
+        document.getElementById('showLetter').addEventListener('click', function() {
+            document.getElementById('letter').classList.add('active');
+            document.getElementById('tree').style.opacity = '0.3';
+            this.style.display = 'none';
+            
+            // 爱心特效
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = ['💖','💕','💗','💓'][Math.floor(Math.random()*4)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    heart.style.zIndex = '9999';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = 'flyUp 2s forwards';
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 2000);
+                }, i * 200);
+            }
+            
+            // 添加动画样式
+            const style = document.createElement('style');
+            style.textContent = '@keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity:1; } 100% { transform: translateY(-100px) scale(0.5); opacity:0; } }';
+            document.head.appendChild(style);
+        });
+        
+        // 返回圣诞树
+        document.getElementById('backToTree').addEventListener('click', function() {
+            document.getElementById('letter').classList.remove('active');
+            document.getElementById('tree').style.opacity = '1';
+            document.getElementById('showLetter').style.display = 'block';
+        });
+        
+        // 初始化
+        window.onload = function() {
+            createSnowflakes();
+            createTree();
+        };
+    </script>
+</body>
+</html>
