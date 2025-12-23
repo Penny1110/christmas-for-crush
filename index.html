@@ -1,149 +1,481 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎄 给你的圣诞惊喜</title>
-    <meta property="og:title" content="🎄 给你的圣诞惊喜">
-    <meta property="og:description" content="点击查收一份特别的圣诞礼物">
+    <title>🎄 A Christmas Surprise for You</title>
+    <!-- Open Graph for WeChat sharing -->
+    <meta property="og:title" content="🎄 A Special Christmas Gift for You">
+    <meta property="og:description" content="Click to receive a special Christmas surprise">
     <meta property="og:image" content="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&q=80">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: linear-gradient(to bottom, #0a2e38, #1a1a2e); color: #fff; min-height: 100vh; font-family: Arial; text-align: center; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        .snowflake { position: fixed; background: white; border-radius: 50%; opacity: 0.8; animation: fall linear infinite; pointer-events: none; }
-        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
-        h1 { color: #ff6b6b; font-size: 2.5em; margin: 20px 0; text-shadow: 0 0 10px rgba(255,107,107,0.5); }
-        .tree { color: #2ecc71; font-size: 20px; line-height: 1.2; margin: 30px auto; display: inline-block; }
-        .magic-button { background: linear-gradient(45deg, #ff6b6b, #ffa726); color: white; border: none; padding: 15px 35px; font-size: 1.2em; border-radius: 50px; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(255,107,107,0.4); margin: 20px 0; }
-        .magic-button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,107,107,0.6); }
-        .letter-container { display: none; background: #fff9e6; border-radius: 15px; padding: 30px; margin: 30px auto; max-width: 600px; color: #5d4037; text-align: left; border: 2px solid #ffccbc; }
-        .letter-container.active { display: block; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .back-button { background: #2196f3; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; margin: 20px 0; }
-        .heart { color: #ff6b6b; animation: heartbeat 1.5s infinite; display: inline-block; }
-        @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(to bottom, #0a1a2d, #0c2461);
+            color: white;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Snowflakes */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        /* Header */
+        .header {
+            margin: 20px 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: #4ecdc4;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        /* Christmas Tree Container */
+        .tree-container {
+            position: relative;
+            margin: 30px auto;
+            min-height: 300px;
+            z-index: 2;
+        }
+        
+        /* Starlight Tree */
+        #tree {
+            font-family: 'Courier New', monospace;
+            color: #2ecc71;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+            padding: 20px;
+        }
+        
+        .star {
+            color: gold;
+            font-size: 36px;
+            text-shadow: 0 0 20px gold;
+            animation: twinkle 1.5s infinite alternate;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); text-shadow: 0 0 30px gold, 0 0 40px gold; }
+        }
+        
+        .tree-row {
+            margin: 3px 0;
+            position: relative;
+        }
+        
+        .light {
+            animation: lightTwinkle 2s infinite;
+            animation-delay: calc(var(--delay) * 0.5s);
+            position: absolute;
+        }
+        
+        @keyframes lightTwinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .trunk {
+            color: #8B4513;
+            margin-top: 10px;
+            font-size: 24px;
+        }
+        
+        /* Buttons */
+        .button-container {
+            margin: 40px 0;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .magic-button {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.5);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .magic-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.7);
+            background: linear-gradient(45deg, #ff5252, #ff9800);
+        }
+        
+        /* Letter Section */
+        .letter-container {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 700px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .letter-container.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .letter-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ffab91;
+        }
+        
+        .letter-header h2 {
+            color: #d84315;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .handwritten-letter {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            display: block;
+        }
+        
+        /* Back Button */
+        .back-button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+        }
+        
+        .back-button:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(33, 150, 243, 0.4);
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            color: #81c784;
+            font-style: italic;
+            font-size: 1.1em;
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            .subtitle { font-size: 1.1em; }
+            .magic-button { padding: 15px 35px; font-size: 1.1em; }
+            .letter-container { padding: 20px; }
+        }
     </style>
 </head>
 <body>
+    <!-- Snow Background -->
+    <div class="snowflakes" id="snowflakes"></div>
+    
     <div class="container">
-        <h1>🎄 圣诞快乐！ 🎄</h1>
-        <p style="color:#4ecdc4; margin-bottom:20px;">在这个特别的季节，为你准备了一份小小的心意</p>
-        
-        <div id="tree" class="tree"></div>
-        
-        <div>
-            <button class="magic-button" id="showLetter">✨ 查收给你的信 ✨</button>
+        <!-- Header -->
+        <div class="header">
+            <h1>🎄 Merry Christmas, My Dear! 🎄</h1>
+            <p class="subtitle">A special surprise is waiting for you in this magical season</p>
         </div>
         
+        <!-- Christmas Tree -->
+        <div class="tree-container">
+            <div id="tree"></div>
+        </div>
+        
+        <!-- Button -->
+        <div class="button-container">
+            <button class="magic-button" id="showLetter">
+                ✨ Open Your Special Letter ✨
+            </button>
+        </div>
+        
+        <!-- Letter Section -->
         <div class="letter-container" id="letter">
-            <div style="text-align:center; border-bottom:2px dashed #ffab91; padding-bottom:15px; margin-bottom:30px;">
-                <h2 style="color:#d84315;">❤️ 给你的一封信 ❤️</h2>
-                <p>圣诞快乐，我亲爱的朋友</p>
+            <div class="letter-header">
+                <h2>💌 A Christmas Letter for You</h2>
+                <p style="color: #666;">From my heart to yours</p>
             </div>
             
-            <div style="line-height:1.8; font-size:1.1em;">
-                <p>Hey Kai,</p>
-                <p>Just wanted to wish you a very Merry Christmas.</p>
-                <p>As the year winds down, I've been thinking about the things I'm grateful for and high on that list is meeting you. Getting to know you has been a real highlight of my 2025.</p>
-                <p>I've really cherished our badminton matches, shared lectures, and those long walks where we talked about everything and nothing. Thank you for always making me feel heard, and for your comforting hugs when I was feeling low.</p>
-                <p>Feels like our story's still being written. Wishing you all the best for 2026 - and beyond.</p>
-                <div style="text-align:right; margin-top:40px; font-style:italic; color:#bf360c; font-size:1.2em;">
-                    <p>Warmly,</p>
-                    <p>Yiyu PAN <span class="heart">❤️</span></p>
-                </div>
-            </div>
+            <!-- Your handwritten letter image -->
+            <img src="https://ibb.co/Q77pPRFS" 
+                 alt="Handwritten Christmas Letter" 
+                 class="handwritten-letter"
+                 id="letterImage">
+            <p style="color: #777; margin-top: 15px; font-style: italic;">Every word is written specially for you</p>
             
-            <div style="text-align:center; margin-top:30px;">
-                <button class="back-button" id="backToTree">🎄 返回圣诞树 🎄</button>
+            <!-- Back Button -->
+            <div>
+                <button class="back-button" id="backToTree">
+                    🎄 Back to Christmas Tree 🎄
+                </button>
             </div>
         </div>
         
-        <p style="margin-top:40px; color:#81c784; font-style:italic;">愿这个圣诞，你的世界充满温暖和惊喜 <span class="heart">💝</span></p>
+        <!-- Footer -->
+        <div class="footer">
+            <p>May your world be filled with warmth and magic this Christmas <span class="heart">💝</span></p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: #4ecdc4;">From screen to starlight, from code to romance</p>
+        </div>
     </div>
 
     <script>
-        // 生成雪花
+        // Create snowflakes
         function createSnowflakes() {
-            for (let i = 0; i < 40; i++) {
-                const flake = document.createElement('div');
-                flake.className = 'snowflake';
-                const size = Math.random() * 5 + 3;
-                flake.style.width = flake.style.height = size + 'px';
-                flake.style.left = Math.random() * 100 + 'vw';
-                flake.style.animationDuration = (Math.random() * 3 + 5) + 's';
-                flake.style.opacity = Math.random() * 0.6 + 0.3;
-                document.body.appendChild(flake);
+            const snowflakes = document.getElementById('snowflakes');
+            for (let i = 0; i < 60; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                const size = Math.random() * 5 + 2;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDuration = `${Math.random() * 3 + 4}s`;
+                snowflake.style.animationDelay = `${Math.random() * 5}s`;
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                snowflakes.appendChild(snowflake);
             }
         }
         
-        // 生成圣诞树
-        function createTree() {
+        // Create starlight Christmas tree (like in the Douyin video)
+        function createStarlightTree() {
             const tree = document.getElementById('tree');
-            const height = 7;
-            let treeHtml = '<div style="color:gold; margin-bottom:10px;">⭐</div>';
+            const height = 9;
+            let treeHtml = '';
             
+            // Star at the top with strong glow
+            treeHtml += '<div class="star">★</div>';
+            
+            // Create tree rows
             for (let i = 0; i < height; i++) {
                 const spaces = '&nbsp;'.repeat(height - i - 1);
                 let row = '';
-                for (let j = 0; j < (2 * i + 1); j++) {
-                    if (Math.random() < 0.15 && i > 0) {
-                        const deco = ['🔴','🔵','🟡','🎀','💎'][Math.floor(Math.random()*5)];
-                        row += deco;
+                const width = 2 * i + 1;
+                
+                for (let j = 0; j < width; j++) {
+                    const rand = Math.random();
+                    // Add sparkling lights
+                    if (rand < 0.25) {
+                        const colors = ['#FF5252', '#4FC3F7', '#FFEB3B', '#E040FB', '#69F0AE'];
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        row += `<span class="light" style="color:${color}; --delay:${j};">●</span>`;
+                    } else if (rand < 0.3) {
+                        // Add decorations
+                        const decorations = ['🔴', '🔵', '🟡', '🎀', '💎', '✨'];
+                        row += decorations[Math.floor(Math.random() * decorations.length)];
                     } else {
-                        row += '<span style="color:#2ecc71">🎄</span>';
+                        // Tree parts with gradient color
+                        const greenShades = ['#2ecc71', '#27ae60', '#229954'];
+                        const shade = greenShades[Math.floor(Math.random() * greenShades.length)];
+                        row += `<span style="color:${shade}">▲</span>`;
                     }
                 }
-                treeHtml += `<div>${spaces}${row}</div>`;
+                
+                treeHtml += `<div class="tree-row">${spaces}${row}</div>`;
             }
             
-            treeHtml += '<div style="color:#8B4513; margin-top:10px;">&nbsp;&nbsp;|||</div>';
-            treeHtml += '<div style="color:#8B4513;">&nbsp;&nbsp;|||</div>';
-            treeHtml += '<div style="margin-top:20px;">🎁&nbsp;🎁&nbsp;🎁</div>';
+            // Trunk
+            treeHtml += '<div class="trunk">┃ ┃</div>';
+            treeHtml += '<div class="trunk">┃ ┃</div>';
+            
+            // Gifts under the tree
+            treeHtml += '<div style="margin-top: 25px;">';
+            treeHtml += '<span style="margin: 0 10px; font-size: 28px;">🎁</span>';
+            treeHtml += '<span style="margin: 0 10px; font-size: 28px;">🎁</span>';
+            treeHtml += '<span style="margin: 0 10px; font-size: 28px;">🎁</span>';
+            treeHtml += '</div>';
+            
             tree.innerHTML = treeHtml;
+            
+            // Add more twinkling effect to lights
+            setTimeout(() => {
+                const lights = document.querySelectorAll('.light');
+                lights.forEach(light => {
+                    light.style.animation = `lightTwinkle ${1 + Math.random() * 2}s infinite`;
+                });
+            }, 100);
         }
         
-        // 显示信件
+        // Show letter with your handwritten image
         document.getElementById('showLetter').addEventListener('click', function() {
-            document.getElementById('letter').classList.add('active');
-            document.getElementById('tree').style.opacity = '0.3';
+            const letter = document.getElementById('letter');
+            const tree = document.getElementById('tree');
+            
+            // Fade out tree
+            tree.style.opacity = '0.3';
+            tree.style.transition = 'opacity 0.5s';
+            
+            // Show letter with animation
+            letter.classList.add('active');
             this.style.display = 'none';
             
-            // 爱心特效
-            for (let i = 0; i < 8; i++) {
+            // Create floating hearts effect
+            createHeartsEffect();
+            
+            // Play gentle sound (optional)
+            playGentleSound();
+        });
+        
+        // Back to tree
+        document.getElementById('backToTree').addEventListener('click', function() {
+            const letter = document.getElementById('letter');
+            const tree = document.getElementById('tree');
+            const showButton = document.getElementById('showLetter');
+            
+            letter.classList.remove('active');
+            tree.style.opacity = '1';
+            showButton.style.display = 'block';
+        });
+        
+        // Create floating hearts effect
+        function createHeartsEffect() {
+            const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜', '🤎', '🖤', '🤍'];
+            
+            for (let i = 0; i < 12; i++) {
                 setTimeout(() => {
                     const heart = document.createElement('div');
-                    heart.innerHTML = ['💖','💕','💗','💓'][Math.floor(Math.random()*4)];
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                     heart.style.position = 'fixed';
-                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.left = `${Math.random() * 100}vw`;
                     heart.style.top = '100vh';
-                    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    heart.style.fontSize = `${Math.random() * 25 + 20}px`;
                     heart.style.zIndex = '9999';
                     heart.style.pointerEvents = 'none';
-                    heart.style.animation = 'flyUp 2s forwards';
+                    heart.style.animation = `floatUp ${2 + Math.random() * 2}s ease-out forwards`;
                     document.body.appendChild(heart);
-                    setTimeout(() => heart.remove(), 2000);
-                }, i * 200);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 3000);
+                }, i * 150);
             }
             
-            // 添加动画样式
+            // Add floating animation
             const style = document.createElement('style');
-            style.textContent = '@keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity:1; } 100% { transform: translateY(-100px) scale(0.5); opacity:0; } }';
+            style.textContent = `
+                @keyframes floatUp {
+                    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+                }
+            `;
             document.head.appendChild(style);
-        });
+        }
         
-        // 返回圣诞树
-        document.getElementById('backToTree').addEventListener('click', function() {
-            document.getElementById('letter').classList.remove('active');
-            document.getElementById('tree').style.opacity = '1';
-            document.getElementById('showLetter').style.display = 'block';
-        });
+        // Play gentle sound effect (optional)
+        function playGentleSound() {
+            // You can add a gentle sound here if desired
+            // For example: const audio = new Audio('gentle-bell.mp3');
+            // audio.volume = 0.3;
+            // audio.play();
+        }
         
-        // 初始化
+        // Initialize everything when page loads
         window.onload = function() {
             createSnowflakes();
-            createTree();
+            createStarlightTree();
+            
+            // IMPORTANT: Replace with your actual handwritten letter image URL
+            // You need to upload your "圣诞信.png" to an image hosting service
+            // Recommended free services: imgbb.com, imgur.com, or postimages.org
+            const letterImage = document.getElementById('letterImage');
+            // Replace this URL with your actual image URL:
+            // letterImage.src = "YOUR_IMAGE_URL_HERE";
+            
+            // For now, using a placeholder with your letter text
+            // Create a canvas with your letter text as fallback
+            createLetterFallback();
         };
+        
+        
     </script>
 </body>
 </html>
