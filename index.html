@@ -3,267 +3,618 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Christmas Tree For My Crush</title>
+    <title>🎄 A Christmas Surprise for You</title>
+    <meta property="og:title" content="🎄 A Special Christmas Gift for You">
+    <meta property="og:description" content="From screen to starlight, from code to romance">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=800&q=80">
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             background: #000;
-            overflow: hidden;
+            color: white;
+            min-height: 100vh;
             font-family: 'Arial', sans-serif;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            text-align: center;
+            background: radial-gradient(ellipse at center, #0c2461 0%, #000 70%);
         }
-        /* Canvas画布（圣诞树+雪花） */
-        #christmasCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
+        
+        .header {
+            margin-bottom: 20px;
+            z-index: 100;
         }
-        /* 按钮容器（悬浮在画布上） */
-        .btn-container {
-            position: relative;
-            z-index: 2;
-            margin-top: 20px;
+        
+        h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px #ff6b6b;
+            animation: glow 2s ease-in-out infinite alternate;
         }
-        /* 按钮样式（圣诞风） */
-        .btn {
-            padding: 15px 30px;
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b; }
+            to { text-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff5252, 0 0 40px #ff5252; }
+        }
+        
+        .subtitle {
+            color: #4ecdc4;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        
+        /* Canvas for the starry tree */
+        #treeCanvas {
+            width: 600px;
+            height: 700px;
+            max-width: 90vw;
+            max-height: 70vh;
+            display: block;
+            margin: 0 auto;
+            z-index: 10;
+        }
+        
+        .controls {
+            margin: 30px auto;
+            z-index: 100;
+        }
+        
+        .magic-button {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            color: white;
             border: none;
+            padding: 18px 45px;
+            font-size: 1.3em;
             border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 0 10px;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.5);
+            font-weight: bold;
+                    letter-spacing: 1px;
+            margin: 10px;
+            z-index: 100;
+            position: relative;
         }
-        #openLetterBtn {
-            background: linear-gradient(45deg, #22c1c3, #fdbb2d);
+        
+        .magic-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.7);
+        }
+        
+        .letter-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 249, 230, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            text-align: center;
+        }
+        
+        .letter-container.active {
+            display: block;
+            animation: fadeInScale 0.8s ease;
+        }
+        
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .letter-header {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ffab91;
+        }
+        
+        .letter-header h2 {
+            color: #d84315;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .letter-image {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            display: block;
+            border: 5px solid white;
+        }
+        
+        .back-button {
+            background: #2196f3;
             color: white;
-            box-shadow: 0 0 20px rgba(34, 193, 195, 0.5);
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
         }
-        #openLetterBtn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(34, 193, 195, 0.8);
+        
+        .back-button:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
         }
-        /* 信件照片容器（默认隐藏） */
-        #letterContainer {
+        
+        .footer {
+            margin-top: 20px;
+            color: #81c784;
+            font-style: italic;
+            font-size: 1em;
+            z-index: 100;
+        }
+        
+        /* Starfield background */
+        #starfield {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 3;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Overlay when letter is open */
+        .overlay {
             display: none;
-            align-items: center;
-            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
         }
-        #letterImg {
-            max-width: 90%;
-            max-height: 90vh;
-            border: 5px solid #fdbb2d;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(253, 187, 45, 0.8);
+        
+        .overlay.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
         }
-        #backBtn {
-            position: absolute;
-            bottom: 30px;
-            background: linear-gradient(45deg, #ff5e62, #ff9966);
-            color: white;
-            box-shadow: 0 0 20px rgba(255, 94, 98, 0.5);
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        #backBtn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 94, 98, 0.8);
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .subtitle { font-size: 1em; }
+            #treeCanvas { width: 95vw; height: 60vh; }
+            .magic-button { padding: 15px 30px; font-size: 1.1em; }
+            .letter-container { padding: 20px; width: 95%; }
         }
     </style>
 </head>
 <body>
-    <!-- 动态圣诞树画布 -->
-    <canvas id="christmasCanvas"></canvas>
-
-    <!-- 打开信件按钮 -->
-    <div class="btn-container">
-        <button class="btn" id="openLetterBtn">A Letter For You 📜</button>
+    <!-- Starfield Background -->
+    <canvas id="starfield"></canvas>
+    
+    <!-- Overlay for letter -->
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="header">
+        <h1>🎄 A Christmas Miracle for You 🎄</h1>
+        <p class="subtitle">From screen to starlight, from code to romance</p>
     </div>
-
-    <!-- 信件照片容器（默认隐藏） -->
-    <div id="letterContainer">
-        <img id="letterImg" src="letter.jpg" alt="My Christmas Letter For You">
-        <button class="btn" id="backBtn">Back to Tree 🎄</button>
+    
+    <!-- Canvas for Dynamic Tree -->
+    <canvas id="treeCanvas"></canvas>
+    
+    <div class="controls">
+        <button class="magic-button" id="showLetter">
+            ✨ Open Your Christmas Letter ✨
+        </button>
+    </div>
+    
+    <!-- Letter Container -->
+    <div class="letter-container" id="letter">
+        <div class="letter-header">
+            <h2>💌 My Handwritten Letter to You</h2>
+            <p style="color: #666;">Every word is written from my heart</p>
+        </div>
+        
+        <!-- Your handwritten letter image -->
+        <img src="https://i.ibb.co/ZzLtjKN7/image.png" 
+             alt="My handwritten Christmas letter to you"
+             class="letter-image"
+             id="letterImage">
+        <p style="color: #777; margin-top: 15px; font-style: italic;">
+            Scroll if needed to read every heartfelt word
+        </p>
+        
+        <button class="back-button" id="backToTree">
+            🎄 Back to the Magic Tree 🎄
+        </button>
+    </div>
+    
+    <div class="footer">
+        <p>May this Christmas fill your world with wonder and warmth <span style="color:#ff6b6b">❤️</span></p>
     </div>
 
     <script>
-        // ========== 1. 动态圣诞树+雪花核心逻辑 ==========
-        const canvas = document.getElementById('christmasCanvas');
-        const ctx = canvas.getContext('2d');
-        let w, h;
+        // ============================================
+        // 1. STARFIELD BACKGROUND (Like in the video)
+        // ============================================
+        const starfield = document.getElementById('starfield');
+        const ctxStars = starfield.getContext('2d');
+        starfield.width = window.innerWidth;
+        starfield.height = window.innerHeight;
 
-        // 适配窗口大小
-        function resizeCanvas() {
-            w = window.innerWidth;
-            h = window.innerHeight;
-            canvas.width = w;
-            canvas.height = h;
+        let stars = [];
+        const STAR_COUNT = 400;
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * starfield.width;
+                this.y = Math.random() * starfield.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speed = Math.random() * 0.5 + 0.2;
+                this.brightness = Math.random() * 0.5 + 0.5;
+            }
+            
+            update() {
+                this.y += this.speed;
+                if (this.y > starfield.height) {
+                    this.y = 0;
+                    this.x = Math.random() * starfield.width;
+                }
+            }
+            
+            draw() {
+                ctxStars.beginPath();
+                ctxStars.fillStyle = `rgba(255, 255, 255, ${this.brightness})`;
+                ctxStars.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctxStars.fill();
+            }
         }
+
+        // Initialize stars
+        for (let i = 0; i < STAR_COUNT; i++) {
+            stars.push(new Star());
+        }
+
+        function animateStars() {
+            ctxStars.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctxStars.fillRect(0, 0, starfield.width, starfield.height);
+            
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            
+            requestAnimationFrame(animateStars);
+        }
+
+        // ============================================
+        // 2. DYNAMIC STARLIGHT CHRISTMAS TREE
+        // ============================================
+        const canvas = document.getElementById('treeCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        function resizeCanvas() {
+            const containerWidth = Math.min(600, window.innerWidth * 0.9);
+            const containerHeight = Math.min(700, window.innerHeight * 0.7);
+            canvas.width = containerWidth;
+            canvas.height = containerHeight;
+        }
+        
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // 雪花类（飘落+旋转）
-        class Snowflake {
-            constructor() {
-                this.x = Math.random() * w;
-                this.y = Math.random() * h - h;
-                this.size = Math.random() * 3 + 1;
-                this.speed = Math.random() * 2 + 1;
-                this.angle = Math.random() * Math.PI * 2;
-                this.vx = Math.sin(this.angle) * 0.5;
+        // Tree particles
+        let particles = [];
+        const PARTICLE_COUNT = 150;
+        const TREE_COLORS = [
+            '#2ecc71', '#27ae60', '#229954', // Greens
+            '#FF5252', '#FFEB3B', '#4FC3F7', '#E040FB' // Decorations
+        ];
+
+        class Particle {
+            constructor(x, y, isStar = false) {
+                this.x = x;
+                this.y = y;
+                this.originalX = x;
+                this.originalY = y;
+                this.size = isStar ? Math.random() * 4 + 2 : Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = isStar ? 
+                    TREE_COLORS[Math.floor(Math.random() * 4) + 3] : // Decoration colors
+                    TREE_COLORS[Math.floor(Math.random() * 3)]; // Green colors
+                this.opacity = Math.random() * 0.5 + 0.5;
+                this.pulseSpeed = Math.random() * 0.05 + 0.02;
+                this.pulseOffset = Math.random() * Math.PI * 2;
+                this.isStar = isStar;
+                this.twinkleSpeed = Math.random() * 0.1 + 0.05;
             }
-            update() {
-                this.y += this.speed;
-                this.x += this.vx;
-                this.angle += 0.02;
-                this.vx = Math.sin(this.angle) * 0.5;
-                // 雪花落到底部重置
-                if (this.y > h) {
-                    this.x = Math.random() * w;
-                    this.y = -20;
+            
+            update(time) {
+                // Gentle floating motion
+                this.x = this.originalX + Math.sin(time * this.speedX) * 5;
+                this.y = this.originalY + Math.cos(time * this.speedY) * 5;
+                
+                // Twinkling effect
+                this.opacity = 0.5 + Math.sin(time * this.twinkleSpeed + this.pulseOffset) * 0.5;
+                
+                // Stars twinkle more
+                if (this.isStar) {
+                    this.opacity = 0.7 + Math.sin(time * this.twinkleSpeed * 2 + this.pulseOffset) * 0.3;
                 }
             }
+            
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255,255,255,${0.7 + Math.random() * 0.3})`;
+                
+                if (this.isStar) {
+                    // Draw star shape
+                    const spikes = 5;
+                    const outerRadius = this.size;
+                    const innerRadius = this.size / 2;
+                    
+                    let rotation = Math.PI / 2 * 3;
+                    let x = this.x;
+                    let y = this.y;
+                    let step = Math.PI / spikes;
+                    
+                    ctx.moveTo(x, y - outerRadius);
+                    
+                    for (let i = 0; i < spikes; i++) {
+                        x = this.x + Math.cos(rotation) * outerRadius;
+                        y = this.y + Math.sin(rotation) * outerRadius;
+                        ctx.lineTo(x, y);
+                        rotation += step;
+                        
+                        x = this.x + Math.cos(rotation) * innerRadius;
+                        y = this.y + Math.sin(rotation) * innerRadius;
+                        ctx.lineTo(x, y);
+                        rotation += step;
+                    }
+                    
+                    ctx.lineTo(this.x, this.y - outerRadius);
+                    ctx.closePath();
+                    ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`; // Gold for stars
+                } else {
+                    // Draw circle for tree particles
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `${this.color}${Math.floor(this.opacity * 255).toString(16).padStart(2, '0')}`;
+                }
+                
                 ctx.fill();
-            }
-        }
-
-        // 生成雪花
-        const snowflakes = [];
-        for (let i = 0; i < 100; i++) snowflakes.push(new Snowflake());
-
-        // 绘制圣诞树（分层渐变+星光闪烁）
-        function drawTree() {
-            const treeX = w / 2; // 圣诞树居中
-            const treeHeight = h * 0.7; // 树高度占屏幕70%
-            const layers = 15; // 树的层数（越多越密）
-
-            // 绘制树冠（渐变绿色+随机星光）
-            for (let i = 0; i < layers; i++) {
-                const layerHeight = treeHeight / layers;
-                const y = h * 0.1 + i * layerHeight; // 树的起始位置
-                const width = (i + 1) * (w / 20); // 每层宽度递增
-                const green = 200 - i * 10; // 绿色渐变（从上到下更深）
-                const color = `rgb(${50 + i * 5}, ${green}, ${50 + i * 5})`;
-
-                // 绘制每层三角形
-                ctx.beginPath();
-                ctx.moveTo(treeX, y);
-                ctx.lineTo(treeX - width, y + layerHeight);
-                ctx.lineTo(treeX + width, y + layerHeight);
-                ctx.closePath();
-                ctx.fillStyle = color;
-                ctx.fill();
-
-                // 随机星光（白色闪烁点）
-                if (Math.random() > 0.7) {
-                    const starX = treeX - width + Math.random() * width * 2;
-                    const starY = y + Math.random() * layerHeight;
-                    const starSize = Math.random() * 2 + 1;
+                
+                // Add glow effect for stars
+                if (this.isStar) {
                     ctx.beginPath();
-                    ctx.arc(starX, starY, starSize, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255,255,255,${Math.random()})`;
+                    ctx.arc(this.x, this.y, this.size * 1.5, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity * 0.3})`;
                     ctx.fill();
                 }
             }
-
-            // 绘制树干
-            const trunkWidth = w / 40;
-            const trunkHeight = treeHeight / 5;
-            ctx.fillStyle = '#8B4513'; // 棕褐色树干
-            ctx.fillRect(
-                treeX - trunkWidth / 2,
-                h * 0.1 + treeHeight,
-                trunkWidth,
-                trunkHeight
-            );
-
-            // 绘制树顶星星
-            ctx.save();
-            ctx.translate(treeX, h * 0.1 - 20);
-            ctx.rotate(Math.sin(Date.now() / 1000) * 0.1); // 星星轻微旋转
-            drawStar(0, 0, 20, 10, '#FFD700'); // 金色星星
-            ctx.restore();
         }
 
-        // 绘制五角星
-        function drawStar(x, y, outerR, innerR, color) {
-            ctx.beginPath();
-            for (let i = 0; i < 5; i++) {
-                ctx.lineTo(
-                    x + Math.cos((i * 144 - 90) * Math.PI / 180) * outerR,
-                    y + Math.sin((i * 144 - 90) * Math.PI / 180) * outerR
-                );
-                ctx.lineTo(
-                    x + Math.cos((i * 144 + 72 - 90) * Math.PI / 180) * innerR,
-                    y + Math.sin((i * 144 + 72 - 90) * Math.PI / 180) * innerR
-                );
+        // Create tree shape with particles
+        function createTree() {
+            particles = [];
+            const centerX = canvas.width / 2;
+            const baseY = canvas.height - 50;
+            const treeHeight = canvas.height * 0.6;
+            
+            // Create tree trunk
+            for (let i = 0; i < 20; i++) {
+                const x = centerX + (Math.random() - 0.5) * 40;
+                const y = baseY - i * 3;
+                particles.push(new Particle(x, y, false));
             }
-            ctx.closePath();
-            ctx.fillStyle = color;
-            ctx.fill();
-            ctx.strokeStyle = '#FFF';
-            ctx.strokeWidth = 1;
-            ctx.stroke();
+            
+            // Create tree branches (triangle shape)
+            const layers = 12;
+            for (let layer = 0; layer < layers; layer++) {
+                const layerHeight = treeHeight * (layer / layers);
+                const y = baseY - layerHeight - 50;
+                const width = treeHeight * (1 - layer / layers) * 0.6;
+                
+                const particlesInLayer = layer === 0 ? 5 : Math.floor(width / 5);
+                
+                for (let i = 0; i < particlesInLayer; i++) {
+                    const x = centerX + (Math.random() - 0.5) * width;
+                    const isStar = Math.random() > 0.7 && layer < layers - 3;
+                    particles.push(new Particle(x, y, isStar));
+                    
+                    // Add some particles above for thickness
+                    if (Math.random() > 0.5) {
+                        particles.push(new Particle(x, y - Math.random() * 10, false));
+                    }
+                }
+            }
+            
+            // Add star at the top
+            const topStar = new Particle(centerX, baseY - treeHeight - 40, true);
+            topStar.size = 8;
+            topStar.color = '#FFD700';
+            particles.push(topStar);
+            
+            // Add some floating stars around
+            for (let i = 0; i < 15; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height * 0.7;
+                particles.push(new Particle(x, y, true));
+            }
         }
 
-        // 动画循环
-        function animate() {
-            ctx.clearRect(0, 0, w, h);
+        let time = 0;
+        function animateTree() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // 绘制圣诞树
-            drawTree();
+            // Draw gradient background
+            const gradient = ctx.createRadialGradient(
+                canvas.width / 2, canvas.height / 2, 0,
+                canvas.width / 2, canvas.height / 2, canvas.width
+            );
+            gradient.addColorStop(0, 'rgba(12, 36, 97, 0.3)');
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0.8)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // 更新+绘制雪花
-            snowflakes.forEach(snow => {
-                snow.update();
-                snow.draw();
+            // Update and draw particles
+            particles.forEach(particle => {
+                particle.update(time);
+                particle.draw();
             });
             
-            requestAnimationFrame(animate);
+            time += 0.05;
+            requestAnimationFrame(animateTree);
         }
-        animate();
 
-        // ========== 2. 按钮交互逻辑 ==========
-        const openLetterBtn = document.getElementById('openLetterBtn');
-        const backBtn = document.getElementById('backBtn');
-        const letterContainer = document.getElementById('letterContainer');
-
-        // 打开信件照片
-        openLetterBtn.addEventListener('click', () => {
-            letterContainer.style.display = 'flex';
+        // ============================================
+        // 3. LETTER FUNCTIONS
+        // ============================================
+        document.getElementById('showLetter').addEventListener('click', function() {
+            document.getElementById('overlay').classList.add('active');
+            document.getElementById('letter').classList.add('active');
+            this.style.display = 'none';
+            
+            // Add floating hearts
+            createFloatingHearts();
+        });
+        
+        document.getElementById('backToTree').addEventListener('click', function() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('letter').classList.remove('active');
+            document.getElementById('showLetter').style.display = 'block';
+        });
+        
+        // Close letter when clicking overlay
+        document.getElementById('overlay').addEventListener('click', function() {
+            document.getElementById('overlay').classList.remove('active');
+            document.getElementById('letter').classList.remove('active');
+            document.getElementById('showLetter').style.display = 'block';
         });
 
-        // 返回圣诞树
-        backBtn.addEventListener('click', () => {
-            letterContainer.style.display = 'none';
-        });
+        function createFloatingHearts() {
+            const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜'];
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    heart.style.zIndex = '1001';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = `floatUp ${2 + Math.random() * 3}s ease-out forwards`;
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 200);
+            }
+            
+            // Add CSS animation
+            if (!document.getElementById('heartAnimation')) {
+                const style = document.createElement('style');
+                style.id = 'heartAnimation';
+                style.textContent = `
+                    @keyframes floatUp {
+                        0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+                        100% { transform: translateY(-100vh) rotate(360deg) scale(0); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
 
-        // 兼容移动端点击
-        openLetterBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            letterContainer.style.display = 'flex';
-        });
-        backBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            letterContainer.style.display = 'none';
-        });
+        // ============================================
+        // 4. IMAGE HANDLING
+        // ============================================
+        const letterImage = document.getElementById('letterImage');
+        
+        // FALLBACK: If image fails to load, show text version
+        letterImage.onerror = function() {
+            console.log('Image failed to load, showing text fallback');
+            
+            const textFallback = document.createElement('div');
+            textFallback.style.cssText = `
+                background: linear-gradient(to right, #fff9e6, #fff3e0);
+                padding: 25px;
+                border-radius: 10px;
+                text-align: left;
+                line-height: 1.8;
+                font-family: 'Courier New', monospace;
+                font-size: 1.1em;
+                color: #5d4037;
+                white-space: pre-line;
+                border: 3px double #ffab91;
+                margin: 20px auto;
+                max-width: 600px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            `;
+            
+            textFallback.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-family: 'Brush Script MT', cursive; font-size: 2em; color: #d84315;">
+                        To My Dearest,
+                    </div>
+                    <div style="border-bottom: 2px solid #ffccbc; padding-bottom: 10px; margin-bottom: 20px;"></div>
+                </div>
+                
+                <p style="margin-bottom: 15px;">Hey Kai,</p>
+                
+                <p style="margin-bottom: 15px;">Just wanted to wish you a very Merry Christmas.</p>
+                
+                <p style="margin-bottom: 15px;">As the year winds down, I've been thinking about the things I'm grateful for and high on that list is meeting you. Getting to know you has been a real highlight of my 2025.</p>
+                
+                <p style="margin-bottom: 15px;">I've really cherished our badminton matches, shared lectures, and those long walks where we talked about everything and nothing. Thank you for always making me feel heard, and for your comforting hugs when I was feeling low.</p>
+                
+                <p style="margin-bottom: 15px;">Feels like our story's still being written. Wishing you all the best for 2026 - and beyond.</p>
+                
+                <div style="text-align: right; margin-top: 40px;">
+                    <div style="font-family: 'Brush Script MT', cursive; font-size: 1.5em; color: #bf360c;">
+                        Warmly,<br>
+                        Yiyu PAN
+                    </div>
+                    <div style="font-size: 2em; color: #ff6b6b; margin-top: 10px;">❤️</div>
+                </div>
+            `;
+            
+            this.parentNode.replaceChild(textFallback, this);
+        };
+
+        // ============================================
+        // 5. INITIALIZE EVERYTHING
+        // ============================================
+        window.onload = function() {
+            // Start animations
+            animateStars();
+            createTree();
+            animateTree();
+            
+            // Add window resize handler
+            window.addEventListener('resize', function() {
+                resizeCanvas();
+                createTree();
+            });
+        };
     </script>
 </body>
 </html>
