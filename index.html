@@ -76,7 +76,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 5px 20px rgba(255, 107, 107, 0.5);
             font-weight: bold;
-                    letter-spacing: 1px;
+            letter-spacing: 1px;
             margin: 10px;
             z-index: 100;
             position: relative;
@@ -87,6 +87,7 @@
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.7);
         }
         
+        /* FIXED: Only one .letter-container definition */
         .letter-container {
             display: none;
             position: fixed;
@@ -98,34 +99,21 @@
             padding: 30px;
             width: 90%;
             max-width: 700px;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
+            overflow-x: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             z-index: 1000;
             text-align: center;
         }
         
-        .letter-container {
-           display: none;
-           position: fixed;
-           top: 50%;
-           left: 50%;
-           transform: translate(-50%, -50%);
-           background: rgba(255, 249, 230, 0.95);
-           border-radius: 15px;
-           padding: 30px;
-           width: 90%;
-           max-width: 700px;
-           max-height: 85vh;  /* 增加最大高度 */
-           overflow-y: auto;  /* 允许滚动 */
-           overflow-x: hidden;
-           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-           z-index: 1000;
-           text-align: center;
+        .letter-container.active {
+            display: block;
+            animation: fadeInScale 0.8s ease;
         }
         
         @keyframes fadeInScale {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
             to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
         
@@ -152,7 +140,7 @@
             display: block;
             border: 5px solid white;
             object-fit: contain;
-         }
+        }
         
         .back-button {
             background: #2196f3;
@@ -248,7 +236,7 @@
     <div class="letter-container" id="letter">
         <div class="letter-header">
             <h2>💌 My Handwritten Letter to You</h2>
-            
+            <p style="color: #666;">Every word is written from my heart</p>
         </div>
         
         <!-- Your handwritten letter image -->
@@ -257,7 +245,7 @@
              class="letter-image"
              id="letterImage">
         <p style="color: #777; margin-top: 15px; font-style: italic;">
-            Scroll if needed to read every word
+            Scroll if needed to read every heartfelt word
         </p>
         
         <button class="back-button" id="backToTree">
@@ -271,7 +259,7 @@
 
     <script>
         // ============================================
-        // 1. STARFIELD BACKGROUND (Like in the video)
+        // 1. STARFIELD BACKGROUND
         // ============================================
         const starfield = document.getElementById('starfield');
         const ctxStars = starfield.getContext('2d');
