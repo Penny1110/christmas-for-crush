@@ -12,10 +12,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background: linear-gradient(135deg, #0c2461 0%, #1e3799 50%, #0a3d62 100%);
+            background: linear-gradient(135deg, #0f2b46 0%, #1a365d 100%);
             color: white;
             min-height: 100vh;
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             text-align: center;
             padding: 20px;
             overflow-x: hidden;
@@ -27,8 +27,197 @@
             padding: 20px;
         }
         
-        /* Snowflakes (kept for atmosphere) */
-        .snowflakes {
+        /* Header */
+        .header {
+            margin: 30px 0 50px;
+            position: relative;
+        }
+        
+        h1 {
+            color: #ffd700;
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .subtitle {
+            color: #b8e0d2;
+            font-size: 1.2em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* Minimalist Christmas Tree */
+        .tree-container {
+            position: relative;
+            margin: 40px auto;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .minimal-tree {
+            position: relative;
+            width: 200px;
+            height: 350px;
+        }
+        
+        /* Tree body - simple triangle */
+        .tree-body {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 300px solid #2a9d8f;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 10px 20px rgba(42, 157, 143, 0.3));
+        }
+        
+        /* Subtle layers within the tree */
+        .tree-layer {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 80px solid transparent;
+            border-right: 80px solid transparent;
+            border-bottom: 100px solid rgba(255, 255, 255, 0.1);
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .tree-layer:nth-child(2) {
+            border-bottom-color: rgba(255, 255, 255, 0.07);
+            bottom: 190px;
+            border-left-width: 65px;
+            border-right-width: 65px;
+            border-bottom-width: 90px;
+        }
+        
+        .tree-layer:nth-child(3) {
+            border-bottom-color: rgba(255, 255, 255, 0.05);
+            bottom: 240px;
+            border-left-width: 50px;
+            border-right-width: 50px;
+            border-bottom-width: 80px;
+        }
+        
+        /* Simple trunk */
+        .tree-trunk {
+            position: absolute;
+            width: 20px;
+            height: 50px;
+            background: #8d5524;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        
+        /* Elegant star */
+        .elegant-star {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            clip-path: polygon(
+                50% 0%, 
+                61% 35%, 
+                98% 35%, 
+                68% 57%, 
+                79% 91%, 
+                50% 70%, 
+                21% 91%, 
+                32% 57%, 
+                2% 35%, 
+                39% 35%
+            );
+            box-shadow: 0 0 20px #ffd700;
+        }
+        
+        /* Minimalist ornaments - just a few dots */
+        .ornament {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e63946;
+            animation: subtleGlow 3s infinite alternate;
+        }
+        
+        .ornament:nth-child(2) { 
+            background: #457b9d; 
+            animation-delay: 0.5s;
+            top: 60px; left: 45%;
+        }
+        
+        .ornament:nth-child(3) { 
+            background: #ffb703; 
+            animation-delay: 1s;
+            top: 100px; left: 60%;
+        }
+        
+        .ornament:nth-child(4) { 
+            background: #9d4edd; 
+            animation-delay: 1.5s;
+            top: 140px; left: 40%;
+        }
+        
+        .ornament:nth-child(5) { 
+            background: #ff9e00; 
+            animation-delay: 2s;
+            top: 180px; left: 55%;
+        }
+        
+        @keyframes subtleGlow {
+            from { opacity: 0.7; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.1); }
+        }
+        
+        /* Simple gifts */
+        .simple-gifts {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 25px;
+        }
+        
+        .gift {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .gift-1 { background: linear-gradient(135deg, #e63946, #ff6b6b); }
+        .gift-2 { background: linear-gradient(135deg, #457b9d, #4cc9f0); }
+        .gift-3 { background: linear-gradient(135deg, #2a9d8f, #52b788); }
+        
+        .gift::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 6px;
+            background: #ffd700;
+            top: -3px;
+            left: 0;
+            border-radius: 3px;
+        }
+        
+        /* Background sparkles */
+        .sparkles {
             position: fixed;
             top: 0;
             left: 0;
@@ -38,252 +227,54 @@
             z-index: 1;
         }
         
-        .snowflake {
+        .sparkle {
             position: absolute;
+            width: 2px;
+            height: 2px;
             background: white;
             border-radius: 50%;
-            opacity: 0.8;
-            animation: fall linear infinite;
+            animation: sparkleTwinkle 4s infinite;
         }
         
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(360deg); }
+        @keyframes sparkleTwinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
         }
         
-        /* Header */
-        .header {
-            margin: 20px 0 40px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        h1 {
-            color: #ffcc00;
-            font-size: 3em;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(255, 204, 0, 0.7),
-                         0 0 40px rgba(255, 204, 0, 0.4);
-            letter-spacing: 3px;
-            font-family: 'Brush Script MT', cursive;
-        }
-        
-        .subtitle {
-            color: #a3e4d7;
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            font-style: italic;
-        }
-        
-        /* Beautiful Static Christmas Tree */
-        .tree-container {
-            position: relative;
-            margin: 30px auto;
-            min-height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-        }
-        
-        .christmas-tree {
-            position: relative;
-            width: 300px;
-            height: 450px;
-        }
-        
-        /* Tree layers */
-        .tree-layer {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-left: 75px solid transparent;
-            border-right: 75px solid transparent;
-            border-bottom: 100px solid;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .layer-1 {
-            bottom: 100px;
-            border-bottom-color: #27ae60;
-            filter: drop-shadow(0 5px 10px rgba(39, 174, 96, 0.5));
-        }
-        
-        .layer-2 {
-            bottom: 160px;
-            border-left: 90px solid transparent;
-            border-right: 90px solid transparent;
-            border-bottom: 120px solid #229954;
-            filter: drop-shadow(0 5px 10px rgba(34, 153, 84, 0.5));
-        }
-        
-        .layer-3 {
-            bottom: 240px;
-            border-left: 105px solid transparent;
-            border-right: 105px solid transparent;
-            border-bottom: 130px solid #1e8449;
-            filter: drop-shadow(0 5px 10px rgba(30, 132, 73, 0.5));
-        }
-        
-        /* Trunk */
-        .trunk {
-            position: absolute;
-            width: 30px;
-            height: 60px;
-            background: #8B4513;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(139, 69, 19, 0.8);
-        }
-        
-        /* Star on top */
-        .star {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 60px;
-            background: gold;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: starGlow 2s infinite alternate;
-            box-shadow: 0 0 30px gold;
-            z-index: 3;
-        }
-        
-        @keyframes starGlow {
-            from { filter: brightness(1); transform: translateX(-50%) scale(1); }
-            to { filter: brightness(1.3); transform: translateX(-50%) scale(1.1); }
-        }
-        
-        /* Ornaments */
-        .ornament {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            box-shadow: 0 0 10px currentColor;
-            z-index: 2;
-        }
-        
-        .ornament.red { background: #ff3333; color: #ff3333; }
-        .ornament.blue { background: #3399ff; color: #3399ff; }
-        .ornament.yellow { background: #ffff33; color: #ffff33; }
-        .ornament.purple { background: #cc33ff; color: #cc33ff; }
-        .ornament.silver { background: #cccccc; color: #ffffff; }
-        
-        /* Ornament positions */
-        .ornament:nth-child(1) { top: 120px; left: 45%; }
-        .ornament:nth-child(2) { top: 150px; left: 60%; }
-        .ornament:nth-child(3) { top: 180px; left: 35%; }
-        .ornament:nth-child(4) { top: 210px; left: 55%; }
-        .ornament:nth-child(5) { top: 240px; left: 40%; }
-        .ornament:nth-child(6) { top: 270px; left: 65%; }
-        .ornament:nth-child(7) { top: 300px; left: 45%; }
-        .ornament:nth-child(8) { top: 330px; left: 60%; }
-        
-        /* Garland */
-        .garland {
-            position: absolute;
-            width: 200px;
-            height: 250px;
-            border: 2px dashed gold;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.3;
-            z-index: 1;
-        }
-        
-        /* Gifts under the tree */
-        .gifts {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 30px;
-            z-index: 2;
-        }
-        
-        .gift {
-            width: 60px;
-            height: 60px;
-            position: relative;
-            transform-style: preserve-3d;
-        }
-        
-        .gift-box {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            border-radius: 5px;
-        }
-        
-        .gift-1 .gift-box { background: linear-gradient(45deg, #ff3333, #ff6666); }
-        .gift-2 .gift-box { background: linear-gradient(45deg, #3399ff, #66ccff); }
-        .gift-3 .gift-box { background: linear-gradient(45deg, #33cc33, #66ff66); }
-        
-        .gift-lid {
-            width: 70px;
-            height: 20px;
-            background: inherit;
-            position: absolute;
-            top: -10px;
-            left: -5px;
-            border-radius: 3px;
-        }
-        
-        .gift-bow {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            background: gold;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-        
-        /* Buttons */
+        /* Button - keep your existing style but refined */
         .button-container {
-            margin: 50px 0;
-            z-index: 2;
+            margin: 60px 0 40px;
             position: relative;
+            z-index: 2;
         }
         
         .magic-button {
-            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            background: linear-gradient(135deg, #e63946, #ff9e00);
             color: white;
             border: none;
             padding: 18px 45px;
-            font-size: 1.3em;
+            font-size: 1.1em;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.5);
-            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+            font-weight: 600;
             letter-spacing: 1px;
-            font-family: 'Georgia', serif;
         }
         
         .magic-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.7);
-            background: linear-gradient(45deg, #ff5252, #ff9800);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(230, 57, 70, 0.6);
         }
         
-        /* Letter Section (keep existing) */
+        /* Letter Section (keep your existing) */
         .letter-container {
             display: none;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 249, 230, 0.98);
+            background: rgba(255, 253, 247, 0.98);
             border-radius: 15px;
             padding: 30px;
             width: 90%;
@@ -294,7 +285,7 @@
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
             z-index: 1000;
             text-align: center;
-            border: 3px solid #ffab91;
+            border: 2px solid #ffd700;
         }
         
         .letter-container.active {
@@ -303,21 +294,20 @@
         }
         
         @keyframes fadeInScale {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
             to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
         
         .letter-header {
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 3px solid #ffab91;
+            border-bottom: 2px solid #ffd700;
         }
         
         .letter-header h2 {
-            color: #d84315;
-            font-size: 2.2em;
+            color: #e63946;
+            font-size: 2em;
             margin-bottom: 10px;
-            font-family: 'Brush Script MT', cursive;
         }
         
         .letter-image {
@@ -326,30 +316,29 @@
             height: auto;
             max-height: 70vh;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             margin: 20px auto;
             display: block;
-            border: 5px solid white;
+            border: 3px solid white;
             object-fit: contain;
         }
         
         .back-button {
-            background: linear-gradient(45deg, #2196f3, #21cbf3);
+            background: linear-gradient(135deg, #457b9d, #2a9d8f);
             color: white;
             border: none;
             padding: 14px 35px;
-            font-size: 1.1em;
+            font-size: 1em;
             border-radius: 25px;
             cursor: pointer;
             margin-top: 25px;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
-            font-family: 'Georgia', serif;
+            box-shadow: 0 6px 20px rgba(69, 123, 157, 0.4);
         }
         
         .back-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(33, 150, 243, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(69, 123, 157, 0.5);
         }
         
         /* Overlay */
@@ -360,7 +349,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(15, 43, 70, 0.9);
             z-index: 999;
         }
         
@@ -369,101 +358,62 @@
             animation: fadeIn 0.5s ease;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
         /* Footer */
         .footer {
             margin-top: 40px;
-            color: #a3e4d7;
-            font-style: italic;
-            font-size: 1.1em;
+            color: #b8e0d2;
+            font-size: 1em;
+            position: relative;
             z-index: 2;
         }
         
-        .heart {
-            color: #ff6b6b;
-            animation: heartbeat 1.5s infinite;
-            display: inline-block;
-            margin: 0 5px;
-        }
-        
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        .footer p {
+            opacity: 0.9;
+            line-height: 1.6;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5em; }
-            .subtitle { font-size: 1.2em; }
-            .christmas-tree { transform: scale(0.8); }
-            .magic-button { padding: 16px 35px; font-size: 1.1em; }
-            .letter-container { padding: 20px; width: 95%; }
+            h1 { font-size: 2.2em; }
+            .tree-container { height: 350px; }
+            .minimal-tree { transform: scale(0.9); }
+            .magic-button { padding: 16px 35px; }
         }
     </style>
 </head>
 <body>
-    <!-- Snow Background -->
-    <div class="snowflakes" id="snowflakes"></div>
+    <!-- Background Sparkles -->
+    <div class="sparkles" id="sparkles"></div>
     
-    <!-- Overlay for letter -->
+    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
     
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>🎄 A Christmas Miracle for You 🎄</h1>
-            <p class="subtitle">From screen to starlight, from code to romance</p>
+            <h1>🎄 A Christmas Surprise</h1>
+            <p class="subtitle">A simple, heartfelt gift made just for you</p>
         </div>
         
-        <!-- Beautiful Static Christmas Tree -->
+        <!-- Minimalist Tree -->
         <div class="tree-container">
-            <div class="christmas-tree">
-                <!-- Garland -->
-                <div class="garland"></div>
+            <div class="minimal-tree">
+                <div class="tree-body"></div>
+                <div class="tree-layer"></div>
+                <div class="tree-layer"></div>
+                <div class="tree-layer"></div>
+                <div class="tree-trunk"></div>
+                <div class="elegant-star"></div>
+                <div class="ornament"></div>
+                <div class="ornament"></div>
+                <div class="ornament"></div>
+                <div class="ornament"></div>
+                <div class="ornament"></div>
                 
-                <!-- Tree layers -->
-                <div class="tree-layer layer-1"></div>
-                <div class="tree-layer layer-2"></div>
-                <div class="tree-layer layer-3"></div>
-                
-                <!-- Ornaments -->
-                <div class="ornament red"></div>
-                <div class="ornament blue"></div>
-                <div class="ornament yellow"></div>
-                <div class="ornament purple"></div>
-                <div class="ornament silver"></div>
-                <div class="ornament red"></div>
-                <div class="ornament blue"></div>
-                <div class="ornament yellow"></div>
-                
-                <!-- Star -->
-                <div class="star"></div>
-                
-                <!-- Trunk -->
-                <div class="trunk"></div>
-                
-                <!-- Gifts -->
-                <div class="gifts">
-                    <div class="gift gift-1">
-                        <div class="gift-box"></div>
-                        <div class="gift-lid"></div>
-                        <div class="gift-bow"></div>
-                    </div>
-                    <div class="gift gift-2">
-                        <div class="gift-box"></div>
-                        <div class="gift-lid"></div>
-                        <div class="gift-bow"></div>
-                    </div>
-                    <div class="gift gift-3">
-                        <div class="gift-box"></div>
-                        <div class="gift-lid"></div>
-                        <div class="gift-bow"></div>
-                    </div>
+                <div class="simple-gifts">
+                    <div class="gift gift-1"></div>
+                    <div class="gift gift-2"></div>
+                    <div class="gift gift-3"></div>
                 </div>
             </div>
         </div>
@@ -471,53 +421,61 @@
         <!-- Button -->
         <div class="button-container">
             <button class="magic-button" id="showLetter">
-                ✨ Open Your Christmas Letter ✨
+                ✨ Open Your Letter ✨
             </button>
         </div>
         
-        <!-- Letter Container -->
+        <!-- Letter -->
         <div class="letter-container" id="letter">
             <div class="letter-header">
-                <h2>💌 My Handwritten Letter to You</h2>
-                <p style="color: #666;">Every word is written from my heart</p>
+                <h2>💌 For You</h2>
+                <p style="color: #666;">My handwritten words</p>
             </div>
             
-            <!-- Your handwritten letter image -->
             <img src="https://i.ibb.co/ZzLtjKN7/image.png" 
                  alt="My handwritten Christmas letter to you"
                  class="letter-image"
                  id="letterImage">
             <p style="color: #777; margin-top: 15px; font-style: italic;">
-                Scroll if needed to read every heartfelt word
+                From my heart to yours
             </p>
             
             <button class="back-button" id="backToTree">
-                🎄 Back to the Magic Tree 🎄
+                🎄 Back to Tree
             </button>
         </div>
         
         <!-- Footer -->
         <div class="footer">
-            <p>May this Christmas fill your world with wonder and warmth <span class="heart">❤️</span></p>
+            <p>Wishing you a Christmas filled with peace, joy, and warmth.</p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">Made with ❤️ for you</p>
         </div>
     </div>
 
     <script>
-        // Create snowflakes
-        function createSnowflakes() {
-            const snowflakes = document.getElementById('snowflakes');
-            for (let i = 0; i < 50; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                const size = Math.random() * 4 + 2;
-                snowflake.style.width = `${size}px`;
-                snowflake.style.height = `${size}px`;
-                snowflake.style.left = `${Math.random() * 100}vw`;
-                snowflake.style.animationDuration = `${Math.random() * 3 + 5}s`;
-                snowflake.style.animationDelay = `${Math.random() * 5}s`;
-                snowflake.style.opacity = Math.random() * 0.6 + 0.3;
-                snowflakes.appendChild(snowflake);
+        // Create background sparkles
+        function createSparkles() {
+            const sparkles = document.getElementById('sparkles');
+            for (let i = 0; i < 80; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${Math.random() * 100}vw`;
+                sparkle.style.top = `${Math.random() * 100}vh`;
+                sparkle.style.animationDelay = `${Math.random() * 4}s`;
+                sparkle.style.animationDuration = `${2 + Math.random() * 3}s`;
+                sparkles.appendChild(sparkle);
             }
+        }
+        
+        // Position ornaments randomly on tree
+        function positionOrnaments() {
+            const ornaments = document.querySelectorAll('.ornament');
+            ornaments.forEach((ornament, index) => {
+                const top = 50 + (index * 35);
+                const left = 40 + (Math.random() * 40);
+                ornament.style.top = `${top}px`;
+                ornament.style.left = `${left}%`;
+            });
         }
         
         // Letter functions
@@ -526,8 +484,8 @@
             document.getElementById('letter').classList.add('active');
             this.style.display = 'none';
             
-            // Add floating hearts
-            createFloatingHearts();
+            // Subtle floating effect
+            createFloatingDots();
         });
         
         document.getElementById('backToTree').addEventListener('click', function() {
@@ -536,90 +494,88 @@
             document.getElementById('showLetter').style.display = 'block';
         });
         
-        // Close letter when clicking overlay
         document.getElementById('overlay').addEventListener('click', function() {
             document.getElementById('overlay').classList.remove('active');
             document.getElementById('letter').classList.remove('active');
             document.getElementById('showLetter').style.display = 'block';
         });
         
-        function createFloatingHearts() {
-            const hearts = ['❤️', '🧡', '💛', '💚', '💙', '💜'];
-            for (let i = 0; i < 8; i++) {
+        function createFloatingDots() {
+            for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-                    heart.style.position = 'fixed';
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.top = '100vh';
-                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
-                    heart.style.zIndex = '1001';
-                    heart.style.pointerEvents = 'none';
-                    heart.style.animation = `floatUp ${2 + Math.random() * 3}s ease-out forwards`;
-                    document.body.appendChild(heart);
+                    const dot = document.createElement('div');
+                    dot.style.position = 'fixed';
+                    dot.style.width = dot.style.height = '4px';
+                    dot.style.background = '#ffd700';
+                    dot.style.borderRadius = '50%';
+                    dot.style.left = Math.random() * 100 + 'vw';
+                    dot.style.top = '100vh';
+                    dot.style.zIndex = '1001';
+                    dot.style.pointerEvents = 'none';
+                    dot.style.animation = `floatUp ${2 + Math.random() * 2}s ease-out forwards`;
+                    document.body.appendChild(dot);
                     
-                    setTimeout(() => heart.remove(), 3000);
-                }, i * 200);
+                    setTimeout(() => dot.remove(), 3000);
+                }, i * 100);
             }
             
-            // Add CSS animation
-            if (!document.getElementById('heartAnimation')) {
+            // Add animation style if not exists
+            if (!document.getElementById('dotAnimation')) {
                 const style = document.createElement('style');
-                style.id = 'heartAnimation';
+                style.id = 'dotAnimation';
                 style.textContent = `
                     @keyframes floatUp {
-                        0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-                        100% { transform: translateY(-100vh) rotate(360deg) scale(0); opacity: 0; }
+                        0% { transform: translateY(0) scale(1); opacity: 1; }
+                        100% { transform: translateY(-100vh) scale(0); opacity: 0; }
                     }
                 `;
                 document.head.appendChild(style);
             }
         }
         
-        // Image fallback handling
+        // Image fallback
         const letterImage = document.getElementById('letterImage');
         letterImage.onerror = function() {
             const textFallback = document.createElement('div');
             textFallback.style.cssText = `
-                background: linear-gradient(to right, #fff9e6, #fff3e0);
-                padding: 25px;
+                background: #fffdf7;
+                padding: 30px;
                 border-radius: 10px;
                 text-align: left;
                 line-height: 1.8;
-                font-family: 'Courier New', monospace;
+                font-family: 'Georgia', serif;
                 font-size: 1.1em;
                 color: #5d4037;
                 white-space: pre-line;
-                border: 3px double #ffab91;
+                border: 2px solid #ffd700;
                 margin: 20px auto;
                 max-width: 600px;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             `;
             
             textFallback.innerHTML = `
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <div style="font-family: 'Brush Script MT', cursive; font-size: 2em; color: #d84315;">
-                        To My Dearest,
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <div style="font-family: 'Georgia', serif; font-size: 1.8em; color: #e63946; font-weight: bold;">
+                        My Christmas Letter
                     </div>
-                    <div style="border-bottom: 2px solid #ffccbc; padding-bottom: 10px; margin-bottom: 20px;"></div>
+                    <div style="border-bottom: 1px solid #ffd700; padding-bottom: 15px; margin: 15px 0;"></div>
                 </div>
                 
-                <p style="margin-bottom: 15px;">Hey Kai,</p>
+                <p style="margin-bottom: 20px;">Hey Kai,</p>
                 
-                <p style="margin-bottom: 15px;">Just wanted to wish you a very Merry Christmas.</p>
+                <p style="margin-bottom: 20px;">Just wanted to wish you a very Merry Christmas.</p>
                 
-                <p style="margin-bottom: 15px;">As the year winds down, I've been thinking about the things I'm grateful for and high on that list is meeting you. Getting to know you has been a real highlight of my 2025.</p>
+                <p style="margin-bottom: 20px;">As the year winds down, I've been thinking about the things I'm grateful for and high on that list is meeting you. Getting to know you has been a real highlight of my 2025.</p>
                 
-                <p style="margin-bottom: 15px;">I've really cherished our badminton matches, shared lectures, and those long walks where we talked about everything and nothing. Thank you for always making me feel heard, and for your comforting hugs when I was feeling low.</p>
+                <p style="margin-bottom: 20px;">I've really cherished our badminton matches, shared lectures, and those long walks where we talked about everything and nothing. Thank you for always making me feel heard, and for your comforting hugs when I was feeling low.</p>
                 
-                <p style="margin-bottom: 15px;">Feels like our story's still being written. Wishing you all the best for 2026 - and beyond.</p>
+                <p style="margin-bottom: 20px;">Feels like our story's still being written. Wishing you all the best for 2026 - and beyond.</p>
                 
-                <div style="text-align: right; margin-top: 40px;">
-                    <div style="font-family: 'Brush Script MT', cursive; font-size: 1.5em; color: #bf360c;">
+                <div style="text-align: right; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ffd700;">
+                    <div style="font-family: 'Georgia', serif; font-size: 1.3em; color: #457b9d; font-style: italic;">
                         Warmly,<br>
-                        Yiyu PAN
+                        Yiyu
                     </div>
-                    <div style="font-size: 2em; color: #ff6b6b; margin-top: 10px;">❤️</div>
                 </div>
             `;
             
@@ -628,7 +584,8 @@
         
         // Initialize
         window.onload = function() {
-            createSnowflakes();
+            createSparkles();
+            positionOrnaments();
         };
     </script>
 </body>
